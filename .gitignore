@@ -1,0 +1,46 @@
+RELEASE.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/algorithmStructureWrapperHandler/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/algorithmStructureWrapperHandler/**/build/
+
+### VS Code ###
+.vscode/
+!/.idea/
+/.idea/
+
+### log ###
+*.log
+*.gz
+/logs/
+*.DS_Store
+/start/logs
+/.shardingsphere/
+
+## myself
+*.yml

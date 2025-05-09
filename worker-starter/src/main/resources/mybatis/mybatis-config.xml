@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启驼峰 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 自动映射有三种模式，NONE、PARTIAL、FULL。NONE 不启用自动映射，PARTIAL 只对非嵌套的 resultMap 进行自动映射，FULL 表示对所有的 resultMap 都进行自动映射。默认为 PARTIAL -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="Integer" type="java.lang.Integer"/>
+        <typeAlias alias="Long" type="java.lang.Long"/>
+        <typeAlias alias="Boolean" type="java.lang.Boolean"/>
+        <typeAlias alias="HashMap" type="java.util.HashMap"/>
+        <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
+        <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
+        <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
+    </typeAliases>
+</configuration>

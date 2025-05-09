@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.worker.infra.mapper.role.RoleMapper">
+    <select id="selectRolePage" resultType="com.worker.infra.dataobject.role.RolePageDO">
+        select ari.id as id, ari.role_name as roleName, ari.status as status, ari.created_time as createdTime
+        from admin_role_info ari
+        <where>
+            ari.delete = 0
+            <if test="condition.roleName != null and condition.roleName != ''">
+                and ari.role_name like CONCAT('%',#{condition.roleName},'%')
+            </if>
+            <if test="condition.status != null">
+                and ari.status = #{condition.status}
+            </if>
+        </where>
+        order by ari.created_time desc
+    </select>
+</mapper>
