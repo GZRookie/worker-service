@@ -70,4 +70,12 @@ public interface RoleDao {
      * @return 角色信息
      */
     List<RoleDO> queryRoleByIds(List<Long> roleIds);
+
+    /**
+     * 查询角色
+     *
+     * @param roleId 角色id
+     * @return 角色信息
+     */
+    RoleDO queryRoleById(Long roleId);
 }

@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName("admin_role_resource_relation")
+@TableName("sys_role_permission_relation")
 public class RolePermissionRelationDO implements Serializable {
 
     private static final long serialVersionUID = 8476671408781881264L;

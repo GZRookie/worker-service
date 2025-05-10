@@ -25,6 +25,7 @@ public class WorkerEnableRequest extends BaseRequest implements Serializable {
     @ApiModelProperty(value = "工人ID" , required = true)
     private Long id;
 
+    @NotNull(message = "启用状态不能为空")
     @ApiModelProperty(value = "启用 0-禁用 1-启用", required = true)
-    private Byte enable;
+    private Byte status;
 }

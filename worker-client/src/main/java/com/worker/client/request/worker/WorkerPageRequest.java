@@ -20,18 +20,12 @@ public class WorkerPageRequest extends BasePageRequest implements Serializable {
 
     private static final long serialVersionUID = -8266495121834437512L;
 
-    @ApiModelProperty(value = "角色id")
-    private Long roleId;
-
     @ApiModelProperty(value = "姓名")
     private String name;
 
-    @ApiModelProperty(value = "工种")
-    private String workType;
-
     @ApiModelProperty(value = "工号")
-    private String workerId;
+    private String workerNo;
 
-    @ApiModelProperty(value = "启用状态 0-禁用 1-启用")
-    private Byte status;
+    @ApiModelProperty(value = "角色id")
+    private Long roleId;
 }

@@ -25,10 +25,6 @@ public class WorkerRequest extends BaseRequest implements Serializable {
     @ApiModelProperty(value = "工人ID")
     private Long id;
 
-    @NotNull(message = "请求类型不能为空")
-    @ApiModelProperty(value = "请求类型 1-新增 2-编辑", required = true)
-    private Byte requestType;
-
     @NotBlank(message = "姓名不能为空")
     @ApiModelProperty(value = "姓名", required = true)
     private String name;
@@ -43,11 +39,7 @@ public class WorkerRequest extends BaseRequest implements Serializable {
     
     @NotBlank(message = "联系方式不能为空")
     @ApiModelProperty(value = "联系方式", required = true)
-    private String contact;
-    
-    @NotBlank(message = "工号不能为空")
-    @ApiModelProperty(value = "工号", required = true)
-    private String workerId;
+    private String phoneNum;
     
     @NotBlank(message = "身份证号不能为空")
     @ApiModelProperty(value = "身份证号", required = true)

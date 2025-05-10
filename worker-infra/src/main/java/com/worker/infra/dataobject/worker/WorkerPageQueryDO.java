@@ -1,5 +1,6 @@
 package com.worker.infra.dataobject.worker;
 
+import com.worker.infra.dataobject.BasePageDO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,24 +13,9 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class WorkerPageQueryDO implements Serializable {
+public class WorkerPageQueryDO extends BasePageDO<WorkerInfoDO> implements Serializable {
 
     private static final long serialVersionUID = -8266495121834437512L;
-
-    /**
-     * 当前页
-     */
-    private Integer pageNum;
-
-    /**
-     * 每页大小
-     */
-    private Integer pageSize;
-
-    /**
-     * 角色id
-     */
-    private Long roleId;
 
     /**
      * 姓名
@@ -37,17 +23,12 @@ public class WorkerPageQueryDO implements Serializable {
     private String name;
 
     /**
-     * 工种
-     */
-    private String workType;
-
-    /**
      * 工号
      */
-    private String workerId;
+    private String workerNo;
 
     /**
-     * 启用状态 0-禁用 1-启用
+     * 角色id
      */
-    private Byte status;
+    private Long roleId;
 }

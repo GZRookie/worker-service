@@ -1,6 +1,6 @@
 package com.worker.biz.convert.role;
 
-import com.worker.client.response.permisiion.PermissionBaseNodeDTO;
+import com.worker.client.response.permisiion.PermissionBaseDTO;
 import com.worker.common.utils.ThreadLocalUtil;
 import com.worker.infra.dataobject.permission.PermissionDO;
 import com.worker.infra.dataobject.role.RolePermissionRelationDO;
@@ -36,5 +36,5 @@ public interface RolePermissionRelationConvertor {
         return new Date();
     }
 
-    List<PermissionBaseNodeDTO> convertPermissionDOToDTO(List<PermissionDO> permissionList);
+    List<PermissionBaseDTO> convertPermissionDOToDTO(List<PermissionDO> permissionList);
 }

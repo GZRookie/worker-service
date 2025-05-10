@@ -6,7 +6,7 @@ import com.worker.biz.constants.user.AdminUserResponseStatus;
 import com.worker.biz.convert.permission.PermissionConvertor;
 import com.worker.biz.convert.user.AdminUserConvertor;
 import com.worker.biz.convert.user.AdminUserRoleRelationConvertor;
-import com.worker.client.response.permisiion.PermissionNodeDTO;
+import com.worker.client.response.permisiion.PermissionDTO;
 import com.worker.client.response.role.RoleBaseDTO;
 import com.worker.client.response.user.AdminUserPageDTO;
 import com.worker.client.response.user.AdminUserPermissionInfoDTO;
@@ -15,7 +15,6 @@ import com.worker.common.base.exception.BizException;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.utils.RegularUtils;
 import com.worker.common.utils.ThreadLocalUtil;
-import com.worker.common.utils.TreeUtils;
 import com.worker.infra.dao.permission.PermissionDao;
 import com.worker.infra.dao.role.RoleDao;
 import com.worker.infra.dao.role.RolePermissionRelationDao;
@@ -34,6 +33,7 @@ import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.worker.biz.constants.user.AdminUserBizConstants;
+import com.worker.infra.enums.WorkerRoleEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -211,6 +211,25 @@ public class AdminUserManager {
             throw new BizException(AdminUserResponseStatus.PHONE_NUM_EXIST);
         }
 
+        // 工人角色不允许在用户管理修改
+        List<AdminUserRoleRelationDO> adminUserRoleRelationList =
+                adminUserRoleRelationDao.queryRoleByUserId(request.getId());
+        List<Long> existAdminRoleIds = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(adminUserRoleRelationList)) {
+            existAdminRoleIds = adminUserRoleRelationList.stream()
+                    .map(AdminUserRoleRelationDO::getAdminRoleId)
+                    .collect(Collectors.toList());
+        }
+
+        if(WorkerRoleEnum.judgeWorkerRole(existAdminRoleIds.get(0))) {
+            throw new BizException(AdminUserResponseStatus.OTHER_NOT_WORKER);
+        }
+
+        // 其他角色也不允许修改成工人角色
+        if(WorkerRoleEnum.judgeWorkerRole(request.getRoleIds().get(0))) {
+            throw new BizException(AdminUserResponseStatus.OTHER_NOT_WORKER);
+        }
+
         // 1.编辑角色
         AdminUserInfoDO adminUserDO = adminUserConvertor.convertEditRequestToAdminUserDO(request);
         boolean isEdit = adminUserDao.editAdminUser(adminUserDO);
@@ -219,14 +238,6 @@ public class AdminUserManager {
         }
 
         // 2.编辑角色权限关联
-        List<AdminUserRoleRelationDO> adminUserRoleRelationList =
-                adminUserRoleRelationDao.queryRoleByUserId(adminUserDO.getId());
-        List<Long> existAdminRoleIds = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(adminUserRoleRelationList)) {
-            existAdminRoleIds = adminUserRoleRelationList.stream()
-                    .map(AdminUserRoleRelationDO::getAdminRoleId)
-                    .collect(Collectors.toList());
-        }
         List<Long> adminRoleIds = request.getRoleIds();
         // 新增
         List<Long> finalExistAdminRoleIds = existAdminRoleIds;
@@ -265,6 +276,13 @@ public class AdminUserManager {
         }
 
         for (Long id : request.getIds()) {
+            List<AdminUserRoleRelationDO> adminUserRoleRelationDOList = adminUserRoleRelationDao.queryRoleByUserId(id);
+            List<Long> existAdminRoleIds = adminUserRoleRelationDOList.stream()
+                    .map(AdminUserRoleRelationDO::getAdminRoleId)
+                    .collect(Collectors.toList());
+            if(WorkerRoleEnum.judgeWorkerRole(existAdminRoleIds.get(0))) {
+                throw new BizException(AdminUserResponseStatus.WORKER_FORBID_DELETE);
+            }
             AdminUserInfoDO adminUserInfoDO = new AdminUserInfoDO();
             adminUserInfoDO.setId(id);
             adminUserInfoDO.setDelete(Objects.isNull(request.getDelete()) ?
@@ -345,7 +363,7 @@ public class AdminUserManager {
             }
         }
 
-        List<PermissionNodeDTO> permissionNodes = TreeUtils.asTree(permissionConvertor.convertPermissionDOToDTO(permissionList));
-        return adminUserConvertor.convertToAdminUserPermissionInfoDTO(permissionNodes);
+        List<PermissionDTO> permissionDTOList = permissionConvertor.convertPermissionDOToDTO(permissionList);
+        return adminUserConvertor.convertToAdminUserPermissionInfoDTO(permissionDTOList);
     }
 }

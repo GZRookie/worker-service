@@ -12,9 +12,9 @@ import com.worker.infra.dataobject.role.RolePageDO;
 import com.worker.infra.enums.DeleteEnum;
 import com.worker.infra.enums.StatusEnum;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.worker.infra.enums.WorkerRoleEnum;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -87,6 +87,7 @@ public interface RoleConvertor {
         roleDTO.setId(roleDO.getId());
         roleDTO.setRoleName(roleDO.getRoleName());
         roleDTO.setStatus(roleDO.getStatus());
+        roleDTO.setIsWorker(WorkerRoleEnum.judgeWorkerRole(roleDO.getId()));
         return roleDTO;
     }
 
@@ -117,15 +118,20 @@ public interface RoleConvertor {
         return roleDO;
     }
 
-    @Mappings({
-            @Mapping(target = "delete", expression = "java(setDelete(request.getDelete()))")
-    })
-    RoleDO convertDelRequestToDO(Long id, RoleDeleteRequest request);
+    default RoleDO convertDelRequestToDO(Long id, RoleDeleteRequest request) {
+        RoleDO roleDO = new RoleDO();
+        BeanUtils.copyProperties(request, roleDO);
+        roleDO.setId(id);
+        roleDO.setDelete(setDelete(request.getDelete()));
+        return roleDO;
+    }
 
-    @Mappings({
-            @Mapping(target = "status", expression = "java(setEnable(request.getEnable()))")
-    })
-    RoleDO convertEnableRequestToDO(RoleEnableRequest request);
+    default RoleDO convertEnableRequestToDO(RoleEnableRequest request) {
+        RoleDO roleDO = new RoleDO();
+        BeanUtils.copyProperties(request, roleDO);
+        roleDO.setStatus(setEnable(request.getEnable()));
+        return roleDO;
+    }
 
     default Byte setDelete(Byte delete) {
         return Objects.isNull(delete) ? DeleteEnum.EXIST.getValue().byteValue() : delete;

@@ -70,7 +70,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/show")
-    @ApiOperation(value = "编辑账号回显", notes = "编辑账号回显", httpMethod = "GET")
+    @ApiOperation(value = "编辑账号回显角色", notes = "编辑账号回显角色", httpMethod = "GET")
     public Result<List<RoleBaseDTO>> showAdminUserDetail(@RequestParam(value = "adminUserId") Long adminUserId) {
         return adminUserService.showAdminUserDetail(adminUserId);
     }

@@ -21,6 +21,9 @@ public class AdminUserPageRequest extends BasePageRequest implements Serializabl
 
     private static final long serialVersionUID = -8266495121834437512L;
 
+    @ApiModelProperty(value = "用户名")
+    private String realName;
+
     @ApiModelProperty(value = "角色id")
     private Long roleId;
 

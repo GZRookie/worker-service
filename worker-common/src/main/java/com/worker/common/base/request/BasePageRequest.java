@@ -43,9 +43,6 @@ public class BasePageRequest extends BaseRequest{
     @Max(value = MAX_SORT_LENGTH, message = "每页记录数超过最大限制")
     private Integer limit;
 
-    @ApiModelProperty(value = "搜索关键字，单个搜索框搜索")
-    private String keyWords;
-
     public BasePageRequest() {
         this.offset = 1;
         this.limit = 10;

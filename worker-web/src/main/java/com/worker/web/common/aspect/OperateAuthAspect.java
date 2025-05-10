@@ -1,7 +1,7 @@
 package com.worker.web.common.aspect;
 
 import com.worker.client.api.user.AdminUserService;
-import com.worker.client.response.permisiion.PermissionNodeDTO;
+import com.worker.client.response.permisiion.PermissionDTO;
 import com.worker.client.response.user.AdminUserPermissionInfoDTO;
 import com.worker.common.base.exception.BizException;
 import com.worker.common.base.object.Result;
@@ -101,7 +101,7 @@ public class OperateAuthAspect {
         // 查询当前用户在当前团队下的所有权限Code
         List<String> permissionCodes = new ArrayList<>();
         Result<AdminUserPermissionInfoDTO> userPermissionInfo = adminUserService.queryAdminUserPermissionInfo();
-        List<PermissionNodeDTO> permissionList = userPermissionInfo.getData().getPermissionList();
+        List<PermissionDTO> permissionList = userPermissionInfo.getData().getPermissionList();
         if(CollectionUtils.isEmpty(permissionList)) {
             return false;
         }
@@ -123,10 +123,9 @@ public class OperateAuthAspect {
      * @param permissionList 树状权限
      * @param permissionCodes 权限码
      */
-    private void convertTreeToList(List<PermissionNodeDTO> permissionList, List<String> permissionCodes) {
-        for (PermissionNodeDTO permissionNodeDTO : permissionList) {
-            permissionCodes.add(permissionNodeDTO.getCode());
-            convertTreeToList(permissionNodeDTO.getChildren(), permissionCodes);
+    private void convertTreeToList(List<PermissionDTO> permissionList, List<String> permissionCodes) {
+        for (PermissionDTO permissionDTO : permissionList) {
+            permissionCodes.add(permissionDTO.getCode());
         }
     }
 

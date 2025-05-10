@@ -7,7 +7,7 @@ import com.worker.client.request.role.RoleDeleteRequest;
 import com.worker.client.request.role.RoleEnableRequest;
 import com.worker.client.request.role.RolePageRequest;
 import com.worker.client.request.role.RoleRequest;
-import com.worker.client.response.permisiion.PermissionBaseNodeDTO;
+import com.worker.client.response.permisiion.PermissionBaseDTO;
 import com.worker.client.response.role.RoleDTO;
 import com.worker.common.base.exception.BizException;
 import com.worker.common.base.object.BasePage;
@@ -234,7 +234,7 @@ public class RoleManager {
      * @param roleId 角色id
      * @return 权限信息
      */
-    public List<PermissionBaseNodeDTO> showRoleDetail(Long roleId) {
+    public List<PermissionBaseDTO> showRoleDetail(Long roleId) {
         List<RolePermissionRelationDO> relationList = rolePermissionRelationDao.queryPermissionByRoleId(roleId);
         if(CollectionUtils.isEmpty(relationList)) {
             return Collections.emptyList();

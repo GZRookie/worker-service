@@ -43,7 +43,6 @@ public class AdminUserDaoImpl implements AdminUserDao {
     public AdminUserInfoDO queryAdminUserInfoByPhoneNum(String phoneNum) {
         LambdaQueryWrapper<AdminUserInfoDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StringUtils.isNotEmpty(phoneNum), AdminUserInfoDO::getPhoneNum, phoneNum);
-        wrapper.eq(AdminUserInfoDO::getStatus, StatusEnum.ENABLED.getValue());
         wrapper.eq(AdminUserInfoDO::getDelete, DeleteEnum.EXIST.getValue());
 
         try {

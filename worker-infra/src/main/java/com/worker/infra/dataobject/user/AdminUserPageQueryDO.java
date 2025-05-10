@@ -21,6 +21,11 @@ public class AdminUserPageQueryDO extends BasePageDO<AdminUserInfoDO> implements
     private static final long serialVersionUID = -1796421261805203679L;
 
     /**
+     * 用户名
+     */
+    private String realName;
+
+    /**
      * 角色id
      */
     private Long roleId;

@@ -2,25 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.worker.infra.mapper.user.AdminUserMapper">
     <select id="selectAdminUserPage" resultType="com.worker.infra.dataobject.user.AdminUserPageDO">
-        select aui.id as id, aui.real_name as realName, aui.phone_num as phoneNum, GROUP_CONCAT(ari.role_name) as roleNames,
-               aui.created_time as createdTime, aui.status as status
-        from admin_user_info as aui
-        left join admin_user_role_relation as aurr on aui.id = aurr.admin_user_id
-        left join admin_role_info as ari on aurr.admin_role_id = ari.id
+        select su.id as id, su.real_name as realName, su.phone_num as phoneNum, sr.id as roleId, sr.role_name as roleNames,
+        su.created_time as createdTime, su.status as status
+        from sys_user as su
+        left join sys_user_role_relation as surr on su.id = surr.admin_user_id
+        left join sys_role as sr on surr.admin_role_id = sr.id
         <where>
-            aui.delete = 0
+            su.delete = 0
             <if test="condition.status != null">
-                and aui.status = #{condition.status}
+                and su.status = #{condition.status}
             </if>
             <if test="condition.roleId != null">
-                and ari.id = #{condition.roleId}
+                and sr.id = #{condition.roleId}
             </if>
-            <if test="condition.keyWords != null and condition.keyWords != ''">
-                and (aui.real_name like CONCAT('%',#{condition.keyWords},'%') or aui.phone_num like
-                CONCAT('%',#{condition.keyWords},'%'))
+            <if test="condition.realName != null and condition.realName != ''">
+                and su.real_name like CONCAT('%',#{condition.realName},'%')
             </if>
         </where>
-        group by aui.id
-        order by aui.created_time desc
+        group by su.id
+        order by su.created_time desc
     </select>
 </mapper>

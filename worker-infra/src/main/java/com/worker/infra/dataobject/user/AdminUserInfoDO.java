@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName("admin_user_info")
+@TableName("sys_user")
 public class AdminUserInfoDO implements Serializable {
 
     private static final long serialVersionUID = 2303373962232361566L;

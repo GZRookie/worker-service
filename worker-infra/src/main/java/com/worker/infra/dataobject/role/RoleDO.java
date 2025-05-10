@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName("admin_role_info")
+@TableName("sys_role")
 public class RoleDO implements Serializable {
 
     private static final long serialVersionUID = -1420871520686783547L;

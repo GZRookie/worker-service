@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.worker.infra.mapper.role.RoleMapper">
     <select id="selectRolePage" resultType="com.worker.infra.dataobject.role.RolePageDO">
-        select ari.id as id, ari.role_name as roleName, ari.status as status, ari.created_time as createdTime
-        from admin_role_info ari
+        select sr.id as id, sr.role_name as roleName, sr.status as status, sr.created_time as createdTime
+        from sys_role sr
         <where>
-            ari.delete = 0
+            sr.delete = 0
             <if test="condition.roleName != null and condition.roleName != ''">
-                and ari.role_name like CONCAT('%',#{condition.roleName},'%')
+                and sr.role_name like CONCAT('%',#{condition.roleName},'%')
             </if>
             <if test="condition.status != null">
-                and ari.status = #{condition.status}
+                and sr.status = #{condition.status}
             </if>
         </where>
-        order by ari.created_time desc
+        order by sr.created_time desc
     </select>
 </mapper>

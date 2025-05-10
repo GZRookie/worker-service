@@ -9,12 +9,11 @@ import com.worker.client.request.role.RoleDeleteRequest;
 import com.worker.client.request.role.RoleEnableRequest;
 import com.worker.client.request.role.RolePageRequest;
 import com.worker.client.request.role.RoleRequest;
-import com.worker.client.response.permisiion.PermissionBaseNodeDTO;
+import com.worker.client.response.permisiion.PermissionBaseDTO;
 import com.worker.client.response.role.RoleDTO;
 import com.worker.common.base.exception.BizException;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.base.object.Result;
-import com.worker.common.utils.TreeUtils;
 import cn.hutool.core.collection.CollectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,14 +56,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Result<List<PermissionBaseNodeDTO>> showRoleDetail(Long roleId) {
-        List<PermissionBaseNodeDTO> list = roleManager.showRoleDetail(roleId);
+    public Result<List<PermissionBaseDTO>> showRoleDetail(Long roleId) {
+        List<PermissionBaseDTO> list = roleManager.showRoleDetail(roleId);
         if(CollectionUtil.isEmpty(list)) {
             return Result.success(Collections.emptyList());
         }
 
-        List<PermissionBaseNodeDTO> permissionNodes = TreeUtils.asTree(list);
-        return Result.success(permissionNodes);
+        return Result.success(list);
     }
 
     @Override

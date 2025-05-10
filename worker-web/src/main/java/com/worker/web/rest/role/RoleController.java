@@ -5,7 +5,7 @@ import com.worker.client.request.role.RoleDeleteRequest;
 import com.worker.client.request.role.RoleEnableRequest;
 import com.worker.client.request.role.RolePageRequest;
 import com.worker.client.request.role.RoleRequest;
-import com.worker.client.response.permisiion.PermissionBaseNodeDTO;
+import com.worker.client.response.permisiion.PermissionBaseDTO;
 import com.worker.client.response.role.RoleDTO;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.base.object.Result;
@@ -53,8 +53,8 @@ public class RoleController {
     }
 
     @GetMapping("/show")
-    @ApiOperation(value = "编辑角色回显", notes = "编辑角色回显", httpMethod = "GET")
-    public Result<List<PermissionBaseNodeDTO>> showRoleDetail(@RequestParam(value = "roleId") Long roleId) {
+    @ApiOperation(value = "编辑角色回显权限", notes = "编辑角色回显权限", httpMethod = "GET")
+    public Result<List<PermissionBaseDTO>> showRoleDetail(@RequestParam(value = "roleId") Long roleId) {
         return roleService.showRoleDetail(roleId);
     }
 

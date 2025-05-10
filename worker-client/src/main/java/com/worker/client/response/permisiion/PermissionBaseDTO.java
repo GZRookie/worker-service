@@ -25,9 +25,6 @@ public class PermissionBaseDTO implements Serializable {
     @ApiModelProperty(value = "权限id")
     private Long id;
 
-    @ApiModelProperty(value = "父类权限id")
-    private Long parentId;
-
     @ApiModelProperty(value = "权限名称")
     private String name;
 }

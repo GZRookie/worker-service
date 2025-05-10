@@ -4,7 +4,7 @@ import com.worker.client.request.role.RoleDeleteRequest;
 import com.worker.client.request.role.RoleEnableRequest;
 import com.worker.client.request.role.RolePageRequest;
 import com.worker.client.request.role.RoleRequest;
-import com.worker.client.response.permisiion.PermissionBaseNodeDTO;
+import com.worker.client.response.permisiion.PermissionBaseDTO;
 import com.worker.client.response.role.RoleDTO;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.base.object.Result;
@@ -34,12 +34,12 @@ public interface RoleService {
     Result<Boolean> addRole(RoleRequest request);
 
     /**
-     * 编辑回显
+     * 编辑角色回显权限
      *
      * @param roleId 角色id
      * @return 权限
      */
-    Result<List<PermissionBaseNodeDTO>> showRoleDetail(Long roleId);
+    Result<List<PermissionBaseDTO>> showRoleDetail(Long roleId);
 
     /**
      * 编辑角色

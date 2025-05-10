@@ -5,8 +5,6 @@ import com.worker.common.utils.ThreadLocalUtil;
 import com.worker.infra.dataobject.role.RoleDO;
 import com.worker.infra.dataobject.user.AdminUserRoleRelationDO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.Date;
 import java.util.List;
@@ -20,13 +18,14 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AdminUserRoleRelationConvertor {
 
-    @Mappings({
-           @Mapping(source = "userId", target = "adminUserId"),
-           @Mapping(source = "roleId", target = "adminRoleId"),
-            @Mapping(target = "creator", expression = "java(getCreator())"),
-            @Mapping(target = "createdTime", expression = "java(getDate())")
-    })
-    AdminUserRoleRelationDO convertRequestToAdminUserRoleRelationDO(Long userId, Long roleId);
+    default AdminUserRoleRelationDO convertRequestToAdminUserRoleRelationDO(Long userId, Long roleId) {
+        AdminUserRoleRelationDO adminUserRoleRelationDO = new AdminUserRoleRelationDO();
+        adminUserRoleRelationDO.setAdminUserId(userId);
+        adminUserRoleRelationDO.setAdminRoleId(roleId);
+        adminUserRoleRelationDO.setCreator(getCreator());
+        adminUserRoleRelationDO.setCreatedTime(getDate());
+        return adminUserRoleRelationDO;
+    }
 
     default Long getCreator() {
         return ThreadLocalUtil.getAdminUserId();

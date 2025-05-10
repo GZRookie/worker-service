@@ -1,5 +1,6 @@
 package com.worker.client.response.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -36,9 +37,13 @@ public class AdminUserPageDTO implements Serializable {
     @ApiModelProperty(value = "手机号")
     private String phoneNum;
 
+    @ApiModelProperty(value = "角色id")
+    private Long roleId;
+
     @ApiModelProperty(value = "角色名称")
     private String roleNames;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     private Date createdTime;
 }

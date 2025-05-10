@@ -21,7 +21,6 @@ public class PermissionPageRequest extends BaseRequest implements Serializable {
 
     private static final long serialVersionUID = -7931605142201488344L;
 
-
     @ApiModelProperty(value = "权限名称")
     private String name;
 

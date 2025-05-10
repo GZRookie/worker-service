@@ -19,4 +19,5 @@ public class RoleResponseStatus {
     public static final ResponseStatus DELETE_PARAM_IS_NULL = new ResponseStatus(5302, "删除参数不能为空");
     public static final ResponseStatus ENABLE_PARAM_IS_NULL = new ResponseStatus(5303, "启用参数不能为空");
     public static final ResponseStatus ROLE_CANNOT_DELETE = new ResponseStatus(5304, "角色已关联账号，禁止删除");
+    public static final ResponseStatus ROLE_IS_NOT_EXIST = new ResponseStatus(5305, "角色不存在");
 }

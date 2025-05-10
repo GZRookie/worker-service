@@ -129,4 +129,14 @@ public class RoleDaoImpl implements RoleDao {
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public RoleDO queryRoleById(Long roleId) {
+        try {
+            return roleMapper.selectById(roleId);
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), roleId, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

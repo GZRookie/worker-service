@@ -1,6 +1,6 @@
 package com.worker.client.response.user;
 
-import com.worker.client.response.permisiion.PermissionNodeDTO;
+import com.worker.client.response.permisiion.PermissionDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -28,5 +28,5 @@ public class AdminUserPermissionInfoDTO implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "权限列表")
-    private List<PermissionNodeDTO> permissionList;
+    private List<PermissionDTO> permissionList;
 }

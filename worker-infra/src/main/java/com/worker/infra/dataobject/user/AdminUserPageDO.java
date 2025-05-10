@@ -41,6 +41,12 @@ public class AdminUserPageDO {
     private String realName;
 
     /**
+     * 角色ID
+     */
+    @TableField(value = "roleId")
+    private Long roleId;
+
+    /**
      * 角色名称
      */
     @TableField("roleNames")

@@ -28,22 +28,34 @@ public class WorkerInfoDO implements Serializable {
     private Long id;
 
     /**
+     * 账号ID
+     */
+    @TableField(value = "sys_user_id")
+    private Long sysUserId;
+
+    /**
+     * 工号
+     */
+    @TableField(value = "worker_no")
+    private String workerNo;
+
+    /**
      * 姓名
      */
     @TableField(value = "name")
     private String name;
     
     /**
-     * 工种
-     */
-    @TableField(value = "work_type")
-    private String workType;
-    
-    /**
      * 角色ID
      */
     @TableField(value = "role_id")
     private Long roleId;
+
+    /**
+     * 工种
+     */
+    @TableField(value = "role_name")
+    private String roleName;
     
     /**
      * 性别 0-女 1-男
@@ -54,14 +66,8 @@ public class WorkerInfoDO implements Serializable {
     /**
      * 联系方式
      */
-    @TableField(value = "contact")
-    private String contact;
-    
-    /**
-     * 工号
-     */
-    @TableField(value = "worker_id")
-    private String workerId;
+    @TableField(value = "phone_num")
+    private String phoneNum;
     
     /**
      * 身份证号

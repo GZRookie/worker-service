@@ -5,20 +5,20 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * 订单号类
+ * 工号类
  *
  *  @author
  * @date: 2023-11-4 02:31
  */
-public class OrderNumberUtils {
+public class NumberUtils {
 
     /**
-     * 生成订单号
+     * 生成工号
      *
-     * @return 订单号
+     * @return 工号
      */
-    public static String generateOrderNumber() {
-        // 使用时间戳生成部分订单号
+    public static String generateWorkerNumber() {
+        // 使用时间戳生成部分工号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String timestampPart = dateFormat.format(new Date());
 

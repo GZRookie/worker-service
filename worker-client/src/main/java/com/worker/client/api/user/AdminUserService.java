@@ -58,6 +58,14 @@ public interface AdminUserService {
     Result<BasePage<AdminUserPageDTO>> pageAdminUser(AdminUserPageRequest request);
 
     /**
+     * 判断是否是工人角色类型
+     *
+     * @param roleId 角色id
+     * @return 是否是工人角色类型
+     */
+    Result<Boolean> judgeWorkerRole(Long roleId);
+
+    /**
      * 新增账号
      *
      * @param request 新增请求
@@ -66,7 +74,7 @@ public interface AdminUserService {
     Result<Boolean> addAdminUser(AdminUserRequest request);
 
     /**
-     * 编辑回显
+     * 编辑账号回显角色
      *
      * @param adminUserId 账号id
      * @return 角色信息

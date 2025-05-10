@@ -15,6 +15,7 @@ import com.worker.common.base.object.BasePage;
 import com.worker.common.base.object.Result;
 import com.worker.common.constant.ResponseStatus;
 import cn.dev33.satoken.stp.StpUtil;
+import com.worker.infra.enums.WorkerRoleEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,11 @@ public class AdminUserServiceImpl implements AdminUserService {
             return Result.success(BasePage.empty());
         }
         return Result.success(page);
+    }
+
+    @Override
+    public Result<Boolean> judgeWorkerRole(Long roleId) {
+        return Result.success(WorkerRoleEnum.judgeWorkerRole(roleId));
     }
 
     @Override

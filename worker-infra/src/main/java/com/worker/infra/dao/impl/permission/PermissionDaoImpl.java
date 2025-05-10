@@ -49,80 +49,11 @@ public class PermissionDaoImpl implements PermissionDao {
     }
 
     @Override
-    public boolean addPermission(PermissionDO permission) {
-        try {
-            int rows = permissionMapper.insert(permission);
-            if (rows <= 0) {
-                LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), permission);
-            }
-            return rows > 0;
-        } catch (Exception ex) {
-            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), permission, ex);
-            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean updatePermission(PermissionDO permission) {
-        try {
-            int rows = permissionMapper.updateById(permission);
-            if (rows <= 0) {
-                LoggerUtil.userErrorLog(LOGGER, DBExceptionType.UPDATE_EXCEPTION.getMsg(), permission);
-            }
-            return rows > 0;
-        } catch (Exception ex) {
-            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.UPDATE_EXCEPTION.getMsg(), permission, ex);
-            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean queryPermissionNameExist(String name) {
-        LambdaQueryWrapper<PermissionDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StringUtils.isNotEmpty(name), PermissionDO::getName, name);
-        queryWrapper.eq(PermissionDO::getDelete, DeleteEnum.EXIST.getValue());
-
-        try {
-            PermissionDO permissionDO = permissionMapper.selectOne(queryWrapper);
-            return permissionDO != null;
-        } catch (Exception ex) {
-            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), name, ex);
-            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean queryEditPermissionNameExist(String name, Long id) {
-        LambdaQueryWrapper<PermissionDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StringUtils.isNotEmpty(name), PermissionDO::getName, name);
-        queryWrapper.eq(PermissionDO::getDelete, DeleteEnum.EXIST.getValue());
-        queryWrapper.ne(PermissionDO::getId, id);
-
-        try {
-            PermissionDO permissionDO = permissionMapper.selectOne(queryWrapper);
-            return permissionDO != null;
-        } catch (Exception ex) {
-            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), name, ex);
-            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
     public List<PermissionDO> queryPermissionByIds(List<Long> permissionIds) {
         try {
             return permissionMapper.selectBatchIds(permissionIds);
         } catch (Exception ex) {
             LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), permissionIds, ex);
-            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public PermissionDO queryPermissionById(Long id) {
-        try {
-            return permissionMapper.selectById(id);
-        } catch (Exception ex) {
-            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), id, ex);
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }

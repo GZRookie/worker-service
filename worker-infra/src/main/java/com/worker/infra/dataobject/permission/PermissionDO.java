@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName("admin_resource_info")
+@TableName("sys_permission")
 public class PermissionDO implements Serializable {
 
     private static final long serialVersionUID = -4332566955764051667L;
