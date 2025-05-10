@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -114,6 +115,19 @@ public class WorkerInfoDaoImpl implements WorkerInfoDao {
             return workerInfoMapper.selectOne(wrapper);
         } catch (Exception ex) {
             LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), phoneNum, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<WorkerInfoDO> queryWorkerInfoList() {
+        LambdaQueryWrapper<WorkerInfoDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(WorkerInfoDO::getDelete, DeleteEnum.EXIST.getValue());
+
+        try {
+            return workerInfoMapper.selectList(wrapper);
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), null, ex);
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }

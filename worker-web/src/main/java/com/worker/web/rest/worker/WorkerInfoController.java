@@ -82,7 +82,7 @@ public class WorkerInfoController {
 
     @PostMapping("/import")
     @ApiOperation(value = "批量导入工人信息", notes = "批量导入工人信息", httpMethod = "POST")
-    public Result<Boolean> importWorkerInfo(@RequestParam("file") MultipartFile file) {
+    public Result<String> importWorkerInfo(@RequestParam("file") MultipartFile file) {
         return workerInfoService.importWorkerInfo(file);
     }
 }

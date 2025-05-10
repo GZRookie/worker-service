@@ -89,4 +89,39 @@ public interface WorkerInfoConvertor {
         adminUserInfoDO.setCreatedTime(new Date());
         return adminUserInfoDO;
     }
+
+    default WorkerInfoDO convertImportToDO(String[] rowData, Long roleId, Byte genderValue) {
+        String name = rowData[0];
+        String phoneNum = rowData[2];
+        String roleName = rowData[3];
+        String idCard = rowData[4];
+        String emergencyContact = rowData[5];
+
+        WorkerInfoDO workerInfoDO = new WorkerInfoDO();
+        workerInfoDO.setName(name);
+        workerInfoDO.setWorkerNo(NumberUtils.generateWorkerNumber());
+        workerInfoDO.setRoleId(roleId);
+        workerInfoDO.setRoleName(roleName);
+        workerInfoDO.setGender(genderValue);
+        workerInfoDO.setPhoneNum(phoneNum);
+        workerInfoDO.setIdCard(idCard);
+        workerInfoDO.setEmergencyContact(emergencyContact);
+        workerInfoDO.setStatus(StatusEnum.ENABLED.getValue().byteValue());
+        workerInfoDO.setDelete(DeleteEnum.EXIST.getValue().byteValue());
+        workerInfoDO.setCreator(ThreadLocalUtil.getAdminUserId());
+        workerInfoDO.setCreatedTime(new Date());
+
+        return workerInfoDO;
+    }
+
+    default AdminUserInfoDO convertWorkerToAdminDO(WorkerInfoDO workerInfoDO) {
+        AdminUserInfoDO adminUserInfoDO = new AdminUserInfoDO();
+        adminUserInfoDO.setPhoneNum(workerInfoDO.getPhoneNum());
+        adminUserInfoDO.setRealName(workerInfoDO.getName());
+        adminUserInfoDO.setStatus(StatusEnum.ENABLED.getValue().byteValue());
+        adminUserInfoDO.setDelete(DeleteEnum.EXIST.getValue().byteValue());
+        adminUserInfoDO.setCreator(ThreadLocalUtil.getAdminUserId());
+        adminUserInfoDO.setCreatedTime(new Date());
+        return adminUserInfoDO;
+    }
 }

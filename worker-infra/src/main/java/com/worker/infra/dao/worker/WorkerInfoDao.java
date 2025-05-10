@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.worker.infra.dataobject.worker.WorkerInfoDO;
 import com.worker.infra.dataobject.worker.WorkerPageQueryDO;
 
+import java.util.List;
+
 /**
  * 工人信息DAO接口
  *
@@ -59,4 +61,11 @@ public interface WorkerInfoDao {
      * @return 工人信息
      */
     WorkerInfoDO queryWorkerInfoByPhoneNum(String phoneNum);
+
+    /**
+     * 查询工人信息
+     *
+     * @return 工人信息
+     */
+    List<WorkerInfoDO> queryWorkerInfoList();
 }

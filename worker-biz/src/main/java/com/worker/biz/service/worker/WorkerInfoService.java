@@ -88,5 +88,5 @@ public interface WorkerInfoService {
      * @param file Excel文件
      * @return 导入结果
      */
-    Result<Boolean> importWorkerInfo(MultipartFile file);
+    Result<String> importWorkerInfo(MultipartFile file);
 }

@@ -139,4 +139,17 @@ public class AdminUserDaoImpl implements AdminUserDao {
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public List<AdminUserInfoDO> queryAdminUserInfoList() {
+        LambdaQueryWrapper<AdminUserInfoDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(AdminUserInfoDO::getDelete, DeleteEnum.EXIST.getValue());
+
+        try {
+            return adminUserMapper.selectList(wrapper);
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), null, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

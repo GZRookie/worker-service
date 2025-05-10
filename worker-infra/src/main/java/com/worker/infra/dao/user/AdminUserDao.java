@@ -70,4 +70,11 @@ public interface AdminUserDao {
      * @return 未删除已启用的用户信息
      */
     List<AdminUserInfoDO> queryAdminUserInfoByIds(List<Long> adminUserIds);
+
+    /**
+     * 查询用户信息
+     *
+     * @return 用户信息
+     */
+    List<AdminUserInfoDO> queryAdminUserInfoList();
 }

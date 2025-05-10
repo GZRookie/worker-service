@@ -22,4 +22,7 @@ public class WorkerResponseStatus {
     public static final ResponseStatus WORKER_NOT_EXIST = new ResponseStatus(5406, "工人信息不存在");
     public static final ResponseStatus PHONE_NUM_EXIST = new ResponseStatus(5307, "手机号已存在");
     public static final ResponseStatus NOT_WORKER_ROLE = new ResponseStatus(5308, "请选择工人角色类型");
+    public static final ResponseStatus CHOSE_FILE = new ResponseStatus(5309, "请选择要导入的文件");
+    public static final ResponseStatus FILE_FORMAT_ERROR = new ResponseStatus(5310, "文件格式不正确，请上传Excel文件");
+    public static final ResponseStatus DATA_IS_EMPTY = new ResponseStatus(5311, "导入的数据为空");
 }
