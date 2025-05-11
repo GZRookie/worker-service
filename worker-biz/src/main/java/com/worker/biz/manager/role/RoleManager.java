@@ -25,16 +25,17 @@ import com.worker.infra.dataobject.user.AdminUserRoleRelationDO;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.worker.biz.constants.role.RoleResponseStatus;
+import com.worker.infra.enums.WorkerRoleEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.worker.biz.constants.role.RoleResponseStatus.*;
 
 /**
  * 角色Manager
@@ -127,6 +128,9 @@ public class RoleManager {
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean editRole(RoleRequest request) {
+        if(WorkerRoleEnum.getAllRoleIds().contains(request.getId())) {
+            throw new BizException(WORKER_ROLE_CANNOT_EDIT);
+        }
         boolean isExist = roleDao.queryEditRoleNameExist(request.getRoleName(), request.getId());
         if(isExist) {
             throw new BizException(RoleResponseStatus.NAME_EXIST);
@@ -187,6 +191,12 @@ public class RoleManager {
     public boolean deleteRole(RoleDeleteRequest request) {
         if (CollectionUtils.isEmpty(request.getIds())) {
             return true;
+        }
+
+        Set<Long> set = new HashSet<>(request.getIds());
+        boolean hasIntersection = WorkerRoleEnum.getAllRoleIds().stream().anyMatch(set::contains);
+        if(hasIntersection) {
+            throw new BizException(WORKER_ROLE_CANNOT_DELETE);
         }
 
         List<AdminUserRoleRelationDO> adminUserRoleRelationList = adminUserRoleRelationDao.queryUserIdsByRoleIds(request.getIds());

@@ -9,6 +9,7 @@ import com.worker.client.response.worker.WorkerPageDTO;
 import com.worker.client.response.worker.WorkerRoleDTO;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.base.object.Result;
+import com.worker.web.common.anno.CheckOperateAuth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class WorkerInfoController {
     @Resource
     private WorkerInfoService workerInfoService;
 
+    @CheckOperateAuth(code = "system:worker")
     @PostMapping("/page")
     @ApiOperation(value = "工人信息分页查询", notes = "工人信息分页查询", httpMethod = "POST")
     public Result<BasePage<WorkerPageDTO>> pageWorkerInfo(@RequestBody WorkerPageRequest request) {
@@ -44,12 +46,14 @@ public class WorkerInfoController {
         return workerInfoService.getWorkerRoleList();
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @PostMapping("/add")
     @ApiOperation(value = "新增工人信息", notes = "新增工人信息", httpMethod = "POST")
     public Result<Boolean> addWorkerInfo(@RequestBody @Valid WorkerRequest request) {
         return workerInfoService.addWorkerInfo(request);
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @PostMapping("/edit")
     @ApiOperation(value = "编辑工人信息", notes = "编辑工人信息", httpMethod = "POST")
     public Result<Boolean> editWorkerInfo(@RequestBody @Valid WorkerRequest request) {
@@ -62,24 +66,28 @@ public class WorkerInfoController {
         return workerInfoService.queryWorkerInfoById(id);
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @GetMapping("/delete/{id}")
     @ApiOperation(value = "删除工人信息", notes = "删除工人信息", httpMethod = "GET")
     public Result<Boolean> deleteWorkerInfo(@PathVariable("id") Long id) {
         return workerInfoService.deleteWorkerInfo(id);
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @PostMapping("/enable")
     @ApiOperation(value = "启用/禁用工人信息", notes = "启用/禁用工人信息", httpMethod = "POST")
     public Result<Boolean> enableWorkerInfo(@RequestBody @Valid WorkerEnableRequest request) {
         return workerInfoService.enableWorkerInfo(request);
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @GetMapping("/export/template")
     @ApiOperation(value = "下载工人信息导入模板", notes = "下载工人信息导入模板", httpMethod = "GET")
     public void downloadImportTemplate(HttpServletResponse response) {
         workerInfoService.downloadImportTemplate(response);
     }
 
+    @CheckOperateAuth(code = "system:worker")
     @PostMapping("/import")
     @ApiOperation(value = "批量导入工人信息", notes = "批量导入工人信息", httpMethod = "POST")
     public Result<String> importWorkerInfo(@RequestParam("file") MultipartFile file) {

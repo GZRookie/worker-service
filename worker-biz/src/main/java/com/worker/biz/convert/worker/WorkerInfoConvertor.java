@@ -10,6 +10,7 @@ import com.worker.client.response.worker.WorkerPageDTO;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.utils.ThreadLocalUtil;
 import com.worker.infra.dataobject.user.AdminUserInfoDO;
+import com.worker.infra.dataobject.user.AdminUserRoleRelationDO;
 import com.worker.infra.dataobject.worker.WorkerInfoDO;
 import com.worker.infra.dataobject.worker.WorkerPageQueryDO;
 import com.worker.infra.enums.DeleteEnum;
@@ -18,6 +19,7 @@ import org.mapstruct.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,11 +51,48 @@ public interface WorkerInfoConvertor {
         return BasePage.build(list, page.getTotal());
     }
 
-    List<WorkerPageDTO> convertBasePageToDTOList(List<WorkerInfoDO> records);
+    default List<WorkerPageDTO> convertBasePageToDTOList(List<WorkerInfoDO> records) {
+        if ( records == null ) {
+            return null;
+        }
 
-    default void convertAdminUserToDO(AdminUserInfoDO adminUserInfoDO, String phoneNum) {
+        List<WorkerPageDTO> list = new ArrayList<WorkerPageDTO>( records.size() );
+        int i = 1;
+        for ( WorkerInfoDO workerInfoDO : records ) {
+            list.add( workerInfoDOToWorkerPageDTO( workerInfoDO, i ) );
+            i++;
+        }
+
+        return list;
+    }
+
+    default WorkerPageDTO workerInfoDOToWorkerPageDTO(WorkerInfoDO workerInfoDO, int i) {
+        if ( workerInfoDO == null ) {
+            return null;
+        }
+
+        WorkerPageDTO workerPageDTO = new WorkerPageDTO();
+
+        workerPageDTO.setId( workerInfoDO.getId() );
+        workerPageDTO.setNum( i );
+        workerPageDTO.setSysUserId( workerInfoDO.getSysUserId() );
+        workerPageDTO.setName( workerInfoDO.getName() );
+        workerPageDTO.setRoleId( workerInfoDO.getRoleId() );
+        workerPageDTO.setRoleName( workerInfoDO.getRoleName() );
+        workerPageDTO.setGender( workerInfoDO.getGender() );
+        workerPageDTO.setPhoneNum( workerInfoDO.getPhoneNum() );
+        workerPageDTO.setWorkerNo( workerInfoDO.getWorkerNo() );
+        workerPageDTO.setIdCard( workerInfoDO.getIdCard() );
+        workerPageDTO.setEmergencyContact( workerInfoDO.getEmergencyContact() );
+        workerPageDTO.setStatus( workerInfoDO.getStatus() );
+        workerPageDTO.setCreatedTime( workerInfoDO.getCreatedTime() );
+
+        return workerPageDTO;
+    }
+
+    default void convertAdminUserToDO(AdminUserInfoDO adminUserInfoDO, String phoneNum, String name) {
         adminUserInfoDO.setPhoneNum(phoneNum);
-        adminUserInfoDO.setPassword("123456");
+        adminUserInfoDO.setRealName(name);
     }
 
     default void convertEditRequestToDO(WorkerInfoDO workerInfoDO, WorkerRequest request, String roleName) {
@@ -84,6 +123,7 @@ public interface WorkerInfoConvertor {
         adminUserInfoDO.setStatus(StatusEnum.ENABLED.getValue().byteValue());
         adminUserInfoDO.setDelete(DeleteEnum.EXIST.getValue().byteValue());
         adminUserInfoDO.setPhoneNum(request.getPhoneNum());
+        adminUserInfoDO.setPassword("123456");
         adminUserInfoDO.setRealName(request.getName());
         adminUserInfoDO.setCreator(ThreadLocalUtil.getAdminUserId());
         adminUserInfoDO.setCreatedTime(new Date());
@@ -123,5 +163,14 @@ public interface WorkerInfoConvertor {
         adminUserInfoDO.setCreator(ThreadLocalUtil.getAdminUserId());
         adminUserInfoDO.setCreatedTime(new Date());
         return adminUserInfoDO;
+    }
+
+    default AdminUserRoleRelationDO convertAdminUserToRoleRelationDO(Long adminUserId, WorkerRequest request) {
+        AdminUserRoleRelationDO adminUserRoleRelationDO = new AdminUserRoleRelationDO();
+        adminUserRoleRelationDO.setAdminUserId(adminUserId);
+        adminUserRoleRelationDO.setAdminRoleId(request.getRoleId());
+        adminUserRoleRelationDO.setCreator(ThreadLocalUtil.getAdminUserId());
+        adminUserRoleRelationDO.setCreatedTime(new Date());
+        return adminUserRoleRelationDO;
     }
 }

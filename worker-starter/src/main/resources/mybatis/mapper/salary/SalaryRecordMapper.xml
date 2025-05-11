@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.worker.infra.mapper.salary.SalaryRecordMapper">
+    <select id="selectSalaryRecord" resultType="com.worker.infra.dataobject.salary.SalaryRecordPageDO">
+        SELECT
+            w.id AS workerId,
+            w.name AS workerName,
+            w.role_id AS roleId,
+            w.role_name AS roleName,
+            w.worker_no AS workerNo,
+            COUNT(*) AS workDays
+        FROM (
+                SELECT
+                    worker_id,
+                    DATE(clock_time) AS work_date
+                FROM
+                    clock_in_record
+                WHERE
+                    `delete` = 0
+                    AND DATE_FORMAT(clock_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
+                GROUP BY
+                    worker_id,
+                    DATE(clock_time)
+                HAVING
+                    SUM(clock_type = 1) > 0 -- 有上班打卡
+                    AND SUM(clock_type = 2) > 0 -- 有下班打卡
+        ) AS daily_records
+        JOIN worker_info w ON w.id = daily_records.worker_id AND w.`delete` = 0
+        <where>
+            <if test="condition.workerName != null and condition.workerName != ''">
+                w.name like CONCAT('%',#{condition.workerName},'%')
+            </if>
+        </where>
+        GROUP BY
+            w.id, w.name
+        ORDER BY
+            w.id
+    </select>
+</mapper>

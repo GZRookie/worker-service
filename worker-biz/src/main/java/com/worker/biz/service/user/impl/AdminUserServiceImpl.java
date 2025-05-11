@@ -116,7 +116,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public Result<Boolean> enableAdminUser(AdminUserEnableRequest request) {
-        if(Objects.isNull(request.getEnable())) {
+        if(Objects.isNull(request.getStatus())) {
             throw new BizException(ENABLE_PARAM_IS_NULL);
         }
         boolean isSuccess = adminUserManager.enableAdminUser(request);

@@ -152,4 +152,14 @@ public class AdminUserDaoImpl implements AdminUserDao {
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public AdminUserInfoDO queryAdminUserInfoById(Long sysUserId) {
+        try {
+            return adminUserMapper.selectById(sysUserId);
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.QUERY_EXCEPTION.getMsg(), sysUserId, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

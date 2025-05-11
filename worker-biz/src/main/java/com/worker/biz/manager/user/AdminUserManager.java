@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.worker.biz.constants.user.AdminUserResponseStatus.WORKER_FORBID_ADD;
 import static com.worker.common.utils.RegularUtils.PASSWORD;
 
 /**
@@ -174,6 +175,10 @@ public class AdminUserManager {
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean addAdminUser(AdminUserRequest request) {
+        if(WorkerRoleEnum.judgeWorkerRole(request.getRoleIds().get(0))) {
+            throw new BizException(WORKER_FORBID_ADD);
+        }
+
         // 校验手机号和密码
         AdminUserInfoDO adminUserInfoDO = adminUserDao.queryAdminUserInfoByPhoneNum(request.getPhoneNum());
         if(!Objects.isNull(adminUserInfoDO)) {
@@ -296,8 +301,8 @@ public class AdminUserManager {
     public boolean enableAdminUser(AdminUserEnableRequest request) {
         AdminUserInfoDO adminUserInfoDO = new AdminUserInfoDO();
         adminUserInfoDO.setId(request.getId());
-        adminUserInfoDO.setStatus(Objects.isNull(request.getEnable()) ?
-                StatusEnum.ENABLED.getValue().byteValue() : request.getEnable());
+        adminUserInfoDO.setStatus(Objects.isNull(request.getStatus()) ?
+                StatusEnum.ENABLED.getValue().byteValue() : request.getStatus());
 
         return adminUserDao.editAdminUser(adminUserInfoDO);
     }

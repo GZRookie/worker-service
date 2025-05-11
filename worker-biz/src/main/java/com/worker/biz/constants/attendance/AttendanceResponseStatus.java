@@ -17,4 +17,9 @@ public class AttendanceResponseStatus {
     public static final ResponseStatus ATTEND_FAIL = new ResponseStatus(5502, "申请请假失败");
     public static final ResponseStatus ATTEND_TYPE_ERROR = new ResponseStatus(5503, "打卡类型不正确");
     public static final ResponseStatus ATTEND_REPEAT = new ResponseStatus(5504, "今天已经打过卡了");
+    public static final ResponseStatus LEAVE_FAIL = new ResponseStatus(5505, "打卡失败");
+    public static final ResponseStatus CANNOT_CLOCK_IN = new ResponseStatus(5506, "今天已经申请了请假，不能打卡");
+    public static final ResponseStatus CLOCK_IN_FORBID_OTHERS = new ResponseStatus(5507, "非本人不能打卡");
+    public static final ResponseStatus LEAVE_FORBID_OTHERS = new ResponseStatus(5508, "非本人不能请假");
+    public static final ResponseStatus ALREADY_APPLIED_TODAY = new ResponseStatus(5509, "已经请过假，请勿重复请假");
 }

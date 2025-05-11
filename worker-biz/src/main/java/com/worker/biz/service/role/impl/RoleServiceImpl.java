@@ -86,7 +86,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Result<Boolean> enableRole(RoleEnableRequest request) {
-        if(Objects.isNull(request.getEnable())) {
+        if(Objects.isNull(request.getStatus())) {
             throw new BizException(RoleResponseStatus.ENABLE_PARAM_IS_NULL);
         }
         boolean isSuccess = roleManager.enableRole(request);

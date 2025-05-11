@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.worker.infra.mapper.attendance.ClockInRecordMapper">
+    <select id="selectAttendanceRecord"
+            resultType="com.worker.infra.dataobject.attendance.AttendanceRecordPageDO">
+        SELECT
+            cir.id AS id,
+            cir.worker_id AS workerId,
+            wi.name AS workerName,
+            cir.clock_type AS clockType,
+            cir.status AS clockStatus,
+            cir.clock_time AS clockTime,
+            cir.remark AS remark,
+            lr.id AS leaveId,
+            lr.leave_type AS leaveType,
+            lr.start_time AS leaveStartTime,
+            lr.end_time AS leaveEndTime,
+            lr.reason AS leaveReason
+        FROM
+            clock_in_record cir
+        LEFT JOIN worker_info wi ON cir.worker_id = wi.id
+        LEFT JOIN leave_record lr ON cir.worker_id = lr.worker_id AND lr.`delete` = 0
+        WHERE
+            cir.`delete` = 0
+        <if test="condition.workerName != null and condition.workerName != ''">
+            AND wi.name LIKE CONCAT('%', #{condition.workerName}, '%')
+        </if>
+        <if test="condition.startDate != null and condition.startDate != ''">
+            AND DATE(cir.clock_time) &gt;= DATE(#{condition.startDate})
+        </if>
+        <if test="condition.endDate != null and condition.endDate != ''">
+            AND DATE(cir.clock_time) &lt;= DATE(#{condition.endDate})
+        </if>
+        ORDER BY cir.clock_time DESC
+    </select>
 </mapper>

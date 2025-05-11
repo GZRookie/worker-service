@@ -111,6 +111,7 @@ public class RoleDaoImpl implements RoleDao {
         LambdaQueryWrapper<RoleDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(RoleDO::getDelete, DeleteEnum.EXIST.getValue());
         queryWrapper.eq(RoleDO::getStatus, StatusEnum.ENABLED.getValue());
+        queryWrapper.orderByAsc(RoleDO::getId);
 
         try {
             return roleMapper.selectList(queryWrapper);

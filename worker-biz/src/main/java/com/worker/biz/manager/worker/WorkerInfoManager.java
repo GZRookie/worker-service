@@ -14,9 +14,11 @@ import com.worker.common.util.ExcelUtil;
 import com.worker.common.utils.LoggerUtil;
 import com.worker.infra.dao.role.RoleDao;
 import com.worker.infra.dao.user.AdminUserDao;
+import com.worker.infra.dao.user.AdminUserRoleRelationDao;
 import com.worker.infra.dao.worker.WorkerInfoDao;
 import com.worker.infra.dataobject.role.RoleDO;
 import com.worker.infra.dataobject.user.AdminUserInfoDO;
+import com.worker.infra.dataobject.user.AdminUserRoleRelationDO;
 import com.worker.infra.dataobject.worker.WorkerInfoDO;
 import com.worker.infra.dataobject.worker.WorkerPageQueryDO;
 import com.worker.infra.enums.DeleteEnum;
@@ -53,6 +55,8 @@ public class WorkerInfoManager {
     private WorkerInfoDao workerInfoDao;
     @Resource
     private AdminUserDao adminUserDao;
+    @Resource
+    private AdminUserRoleRelationDao adminUserRoleRelationDao;
     @Resource
     private RoleDao roleDao;
     @Resource
@@ -108,6 +112,8 @@ public class WorkerInfoManager {
             }
             adminUserInfoDO = workerInfoConvertor.convertAddRequestToAdminUserDO(request);
             adminUserDao.addAdminUser(adminUserInfoDO);
+            AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertAdminUserToRoleRelationDO(adminUserInfoDO.getId(), request);
+            adminUserRoleRelationDao.addAdminUserRoleRelation(adminUserRoleRelationDO);
         } else {
             throw new BizException(WORKER_PHONE_NUM_EXIST);
         }
@@ -154,10 +160,13 @@ public class WorkerInfoManager {
             }
 
             // 如果手机号更改了，也需要更新账号信息
-            if(StringUtils.equals(workerInfoDO.getPhoneNum(), request.getPhoneNum())) {
-                AdminUserInfoDO adminUserInfoDO = adminUserDao.queryAdminUserInfoByPhoneNum(workerInfoDO.getPhoneNum());
-                workerInfoConvertor.convertAdminUserToDO(adminUserInfoDO, request.getPhoneNum());
-                adminUserDao.updateAdminUserInfo(adminUserInfoDO);
+            if(!StringUtils.equals(workerInfoDO.getPhoneNum(), request.getPhoneNum())) {
+                AdminUserInfoDO adminUserInfoDO = adminUserDao.queryAdminUserInfoById(workerInfoDO.getSysUserId());
+                workerInfoConvertor.convertAdminUserToDO(adminUserInfoDO, request.getPhoneNum(), request.getName());
+                adminUserDao.editAdminUser(adminUserInfoDO);
+                AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertAdminUserToRoleRelationDO(adminUserInfoDO.getId(), request);
+                adminUserRoleRelationDao.delAdminUserRoleRelation(adminUserRoleRelationDO);
+                adminUserRoleRelationDao.addAdminUserRoleRelation(adminUserRoleRelationDO);
             }
         }
 
@@ -202,8 +211,10 @@ public class WorkerInfoManager {
         workerInfoConvertor.convertDeleteToDO(workerInfoDO);
         workerInfoDao.editWorkerInfo(workerInfoDO);
         AdminUserInfoDO adminUserInfoDO = adminUserDao.queryAdminUserInfoByPhoneNum(workerInfoDO.getPhoneNum());
-        workerInfoConvertor.convertDeleteAdminUserToDO(adminUserInfoDO);
-        adminUserDao.updateAdminUserInfo(adminUserInfoDO);
+        if(Objects.nonNull(adminUserInfoDO)) {
+            workerInfoConvertor.convertDeleteAdminUserToDO(adminUserInfoDO);
+            adminUserDao.updateAdminUserInfo(adminUserInfoDO);
+        }
         return true;
     }
 

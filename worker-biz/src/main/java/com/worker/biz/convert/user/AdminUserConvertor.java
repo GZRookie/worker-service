@@ -18,6 +18,7 @@ import org.mapstruct.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +48,40 @@ public interface AdminUserConvertor {
         return BasePage.build(list, page.getTotal());
     }
 
-    List<AdminUserPageDTO> convertBasePageToDTOList(List<AdminUserPageDO> records);
+    default List<AdminUserPageDTO> convertBasePageToDTOList(List<AdminUserPageDO> records) {
+        if ( records == null ) {
+            return null;
+        }
+
+        List<AdminUserPageDTO> list = new ArrayList<AdminUserPageDTO>( records.size() );
+        int i = 1;
+        for ( AdminUserPageDO adminUserPageDO : records ) {
+            list.add( adminUserPageDOToAdminUserPageDTO( adminUserPageDO, i ) );
+            i++;
+        }
+
+        return list;
+    }
+
+    default AdminUserPageDTO adminUserPageDOToAdminUserPageDTO(AdminUserPageDO adminUserPageDO, int i) {
+        if ( adminUserPageDO == null ) {
+            return null;
+        }
+
+        AdminUserPageDTO adminUserPageDTO = new AdminUserPageDTO();
+
+        adminUserPageDTO.setCreatedTime( adminUserPageDO.getCreatedTime() );
+        adminUserPageDTO.setId( adminUserPageDO.getId() );
+        adminUserPageDTO.setNum( i );
+        adminUserPageDTO.setPhoneNum( adminUserPageDO.getPhoneNum() );
+        adminUserPageDTO.setPassword( adminUserPageDO.getPassword() );
+        adminUserPageDTO.setRealName( adminUserPageDO.getRealName() );
+        adminUserPageDTO.setRoleId( adminUserPageDO.getRoleId() );
+        adminUserPageDTO.setRoleNames( adminUserPageDO.getRoleNames() );
+        adminUserPageDTO.setStatus( adminUserPageDO.getStatus() );
+
+        return adminUserPageDTO;
+    }
 
     default AdminUserInfoDO convertAddRequestToAdminUserDO(AdminUserRequest request) {
         AdminUserInfoDO adminUserInfoDO = new AdminUserInfoDO();

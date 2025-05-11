@@ -32,4 +32,5 @@ public class AdminUserResponseStatus {
     public static final ResponseStatus OTHER_NOT_WORKER = new ResponseStatus(5114, "该账号为工人角色，不允许修改");
     public static final ResponseStatus WORKER_NOT_OTHER = new ResponseStatus(5115, "其他角色不允许修改为工人角色");
     public static final ResponseStatus WORKER_FORBID_DELETE = new ResponseStatus(5117, "工人角色不允许删除");
+    public static final ResponseStatus WORKER_FORBID_ADD = new ResponseStatus(5118, "不允许新增工人角色");
 }

@@ -55,14 +55,14 @@ public class AdminUserController {
         return adminUserService.queryAdminUserPermissionInfo();
     }
 
-    @CheckOperateAuth(code = "system:account")
+    @CheckOperateAuth(code = "system:user")
     @PostMapping("/page")
     @ApiOperation(value = "账号页面", notes = "账号页面", httpMethod = "POST")
     public Result<BasePage<AdminUserPageDTO>> pageAdminUser(@Valid @RequestBody AdminUserPageRequest request) {
         return adminUserService.pageAdminUser(request);
     }
 
-    @CheckOperateAuth(code = "system:account")
+    @CheckOperateAuth(code = "system:user")
     @PostMapping("/add")
     @ApiOperation(value = "新增账号", notes = "新增账号", httpMethod = "POST")
     public Result<Boolean> addAdminUser(@Valid @RequestBody AdminUserRequest request) {
@@ -75,21 +75,21 @@ public class AdminUserController {
         return adminUserService.showAdminUserDetail(adminUserId);
     }
 
-    @CheckOperateAuth(code = "system:account")
+    @CheckOperateAuth(code = "system:user")
     @PostMapping("/edit")
     @ApiOperation(value = "编辑账号", notes = "编辑账号", httpMethod = "POST")
     public Result<Boolean> editAdminUser(@Valid @RequestBody AdminUserRequest request) {
         return adminUserService.editAdminUser(request);
     }
 
-    @CheckOperateAuth(code = "system:account")
+    @CheckOperateAuth(code = "system:user")
     @PostMapping("/delete")
     @ApiOperation(value = "删除账号", notes = "删除账号", httpMethod = "POST")
     public Result<Boolean> deleteAdminUser(@Valid @RequestBody AdminUserDeleteRequest request) {
         return adminUserService.deleteAdminUser(request);
     }
 
-    @CheckOperateAuth(code = "system:account")
+    @CheckOperateAuth(code = "system:user")
     @PostMapping("/enable")
     @ApiOperation(value = "启用账号", notes = "启用账号", httpMethod = "POST")
     public Result<Boolean> enableRole(@Valid @RequestBody AdminUserEnableRequest request) {

@@ -26,6 +26,9 @@ public class WorkerPageDTO implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
+    @ApiModelProperty(value = "序号")
+    private Integer num;
+
     @ApiModelProperty(value = "账号id")
     private Long sysUserId;
 

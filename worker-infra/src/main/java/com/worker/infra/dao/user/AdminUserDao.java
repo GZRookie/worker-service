@@ -77,4 +77,12 @@ public interface AdminUserDao {
      * @return 用户信息
      */
     List<AdminUserInfoDO> queryAdminUserInfoList();
+
+    /**
+     * 查询用户
+     *
+     * @param sysUserId 用户id
+     * @return 用户信息
+     */
+    AdminUserInfoDO queryAdminUserInfoById(Long sysUserId);
 }

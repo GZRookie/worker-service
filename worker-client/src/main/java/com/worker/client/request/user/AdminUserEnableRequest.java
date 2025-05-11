@@ -28,5 +28,5 @@ public class AdminUserEnableRequest implements Serializable {
 
     @NotNull(message = "启用参数不能为空")
     @ApiModelProperty(value = "启用 1-启用 0-禁用", required = true)
-    private Byte enable;
+    private Byte status;
 }

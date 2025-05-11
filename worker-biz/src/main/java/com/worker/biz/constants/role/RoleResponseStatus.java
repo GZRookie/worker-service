@@ -20,4 +20,7 @@ public class RoleResponseStatus {
     public static final ResponseStatus ENABLE_PARAM_IS_NULL = new ResponseStatus(5303, "启用参数不能为空");
     public static final ResponseStatus ROLE_CANNOT_DELETE = new ResponseStatus(5304, "角色已关联账号，禁止删除");
     public static final ResponseStatus ROLE_IS_NOT_EXIST = new ResponseStatus(5305, "角色不存在");
+    public static final ResponseStatus WORKER_ROLE_CANNOT_ADD = new ResponseStatus(5306, "不允许新增工人角色");
+    public static final ResponseStatus WORKER_ROLE_CANNOT_EDIT = new ResponseStatus(5307, "工人角色不允许更改");
+    public static final ResponseStatus WORKER_ROLE_CANNOT_DELETE = new ResponseStatus(5308, "工人角色不允许删除");
 }

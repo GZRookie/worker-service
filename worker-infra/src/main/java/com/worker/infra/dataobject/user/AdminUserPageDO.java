@@ -35,6 +35,12 @@ public class AdminUserPageDO {
     private String phoneNum;
 
     /**
+     * 密码
+     */
+    @TableField("password")
+    private String password;
+
+    /**
      * 账号名称
      */
     @TableField("real_name")

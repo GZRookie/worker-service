@@ -28,6 +28,9 @@ public class AdminUserPageDTO implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
+    @ApiModelProperty(value = "序号")
+    private Integer num;
+
     @ApiModelProperty(value = "名称")
     private String realName;
 
@@ -36,6 +39,9 @@ public class AdminUserPageDTO implements Serializable {
 
     @ApiModelProperty(value = "手机号")
     private String phoneNum;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
 
     @ApiModelProperty(value = "角色id")
     private Long roleId;

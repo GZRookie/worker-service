@@ -52,16 +52,19 @@ public interface RoleConvertor {
         }
 
         List<RoleDTO> list = new ArrayList<RoleDTO>( records.size() );
+        int i = 1;
         for ( RolePageDO rolePageDO : records ) {
-            list.add( rolePageDOToRoleDTO( rolePageDO ) );
+            list.add( rolePageDOToRoleDTO( rolePageDO, i ) );
+            i++;
         }
 
         return list;
     }
 
-    default RoleDTO rolePageDOToRoleDTO(RolePageDO rolePageDO){
+    default RoleDTO rolePageDOToRoleDTO(RolePageDO rolePageDO, int i){
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(rolePageDO.getId());
+        roleDTO.setNum(i);
         roleDTO.setRoleName(rolePageDO.getRoleName());
         roleDTO.setAdminUserCount(rolePageDO.getAdminUserCount());
         roleDTO.setStatus(rolePageDO.getStatus());
@@ -129,7 +132,7 @@ public interface RoleConvertor {
     default RoleDO convertEnableRequestToDO(RoleEnableRequest request) {
         RoleDO roleDO = new RoleDO();
         BeanUtils.copyProperties(request, roleDO);
-        roleDO.setStatus(setEnable(request.getEnable()));
+        roleDO.setStatus(setEnable(request.getStatus()));
         return roleDO;
     }
 

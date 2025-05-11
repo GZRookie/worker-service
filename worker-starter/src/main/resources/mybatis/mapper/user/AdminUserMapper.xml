@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.worker.infra.mapper.user.AdminUserMapper">
     <select id="selectAdminUserPage" resultType="com.worker.infra.dataobject.user.AdminUserPageDO">
-        select su.id as id, su.real_name as realName, su.phone_num as phoneNum, sr.id as roleId, sr.role_name as roleNames,
+        select su.id as id, su.real_name as realName, su.phone_num as phoneNum, su.password as password, sr.id as roleId, sr.role_name as roleNames,
         su.created_time as createdTime, su.status as status
         from sys_user as su
         left join sys_user_role_relation as surr on su.id = surr.admin_user_id

@@ -27,6 +27,9 @@ public class RoleDTO implements Serializable {
     @ApiModelProperty(value = "角色id", required = true)
     private Long id;
 
+    @ApiModelProperty(value = "序号", required = true)
+    private Integer num;
+
     @ApiModelProperty(value = "角色名称", required = true)
     private String roleName;
 
