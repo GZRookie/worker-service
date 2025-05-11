@@ -1,0 +1,12 @@
+# logback日志配置
+logging:
+  config: classpath:logback.xml
+  level:
+    root: info
+    com.worker: info
+    com.worker.biz.manager: info
+    com.worker.web.common.aspect.LogAspect: warn
+    org.mybatis.spring: warn
+    com.worker.web.common.filter.LoginInterceptor: warn
+    com.worker.infra.mapper: trace
+    com.worker.service.impl: warn

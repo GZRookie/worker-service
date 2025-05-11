@@ -1,0 +1,8 @@
+# application-dev.yml 文件
+spring:
+  config:
+    import:
+      - database.yml
+      - logback.yml
+      - mybatis-plus.yml
+      - sa-token.yml

@@ -1,0 +1,6 @@
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+  global-config:
+    banner: false
