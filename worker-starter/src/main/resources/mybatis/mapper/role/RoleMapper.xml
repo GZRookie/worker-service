@@ -13,6 +13,6 @@
                 and sr.status = #{condition.status}
             </if>
         </where>
-        order by sr.created_time desc
+        order by sr.id asc
     </select>
 </mapper>

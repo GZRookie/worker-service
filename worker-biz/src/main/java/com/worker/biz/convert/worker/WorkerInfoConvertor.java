@@ -183,4 +183,10 @@ public interface WorkerInfoConvertor {
         adminUserRoleRelationDO.setCreatedTime(new Date());
         return adminUserRoleRelationDO;
     }
+
+    default AdminUserRoleRelationDO convertDeleteAdminUserRelationToDO(AdminUserInfoDO adminUserInfoDO) {
+        AdminUserRoleRelationDO adminUserRoleRelationDO = new AdminUserRoleRelationDO();
+        adminUserRoleRelationDO.setAdminUserId(adminUserInfoDO.getId());
+        return adminUserRoleRelationDO;
+    }
 }

@@ -218,6 +218,8 @@ public class WorkerInfoManager {
         if(Objects.nonNull(adminUserInfoDO)) {
             workerInfoConvertor.convertDeleteAdminUserToDO(adminUserInfoDO);
             adminUserDao.updateAdminUserInfo(adminUserInfoDO);
+            AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertDeleteAdminUserRelationToDO(adminUserInfoDO);
+            adminUserRoleRelationDao.delAdminUserRoleRelation(adminUserRoleRelationDO);
         }
         return true;
     }

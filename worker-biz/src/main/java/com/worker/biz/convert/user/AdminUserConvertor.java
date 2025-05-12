@@ -14,6 +14,7 @@ import com.worker.infra.dataobject.user.AdminUserPageQueryDO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.worker.infra.enums.DeleteEnum;
 import com.worker.infra.enums.StatusEnum;
+import com.worker.infra.enums.WorkerRoleEnum;
 import org.mapstruct.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -78,6 +79,7 @@ public interface AdminUserConvertor {
         adminUserPageDTO.setRealName( adminUserPageDO.getRealName() );
         adminUserPageDTO.setRoleId( adminUserPageDO.getRoleId() );
         adminUserPageDTO.setRoleNames( adminUserPageDO.getRoleNames() );
+        adminUserPageDTO.setIsWorker(WorkerRoleEnum.judgeWorkerRole(adminUserPageDO.getRoleId()));
         adminUserPageDTO.setStatus( adminUserPageDO.getStatus() );
 
         return adminUserPageDTO;

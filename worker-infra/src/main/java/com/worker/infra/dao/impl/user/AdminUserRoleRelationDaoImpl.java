@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 后台用户关联关系实现层类
@@ -47,8 +48,8 @@ public class AdminUserRoleRelationDaoImpl implements AdminUserRoleRelationDao{
     @Override
     public boolean delAdminUserRoleRelation(AdminUserRoleRelationDO adminUserRoleRelationDO) {
         LambdaQueryWrapper<AdminUserRoleRelationDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(AdminUserRoleRelationDO::getAdminUserId, adminUserRoleRelationDO.getAdminUserId());
-        queryWrapper.eq(AdminUserRoleRelationDO::getAdminRoleId, adminUserRoleRelationDO.getAdminRoleId());
+        queryWrapper.eq(Objects.nonNull(adminUserRoleRelationDO.getAdminUserId()), AdminUserRoleRelationDO::getAdminUserId, adminUserRoleRelationDO.getAdminUserId());
+        queryWrapper.eq(Objects.nonNull(adminUserRoleRelationDO.getAdminRoleId()), AdminUserRoleRelationDO::getAdminRoleId, adminUserRoleRelationDO.getAdminRoleId());
 
         try {
             adminUserRoleRelationMapper.delete(queryWrapper);

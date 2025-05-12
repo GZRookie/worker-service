@@ -9,7 +9,6 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 后台用户页面响应类
@@ -48,6 +47,9 @@ public class AdminUserPageDTO implements Serializable {
 
     @ApiModelProperty(value = "角色名称")
     private String roleNames;
+
+    @ApiModelProperty(value = "是否工人角色")
+    private Boolean isWorker;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")

@@ -66,6 +66,7 @@ public interface RoleConvertor {
         roleDTO.setId(rolePageDO.getId());
         roleDTO.setNum(i);
         roleDTO.setRoleName(rolePageDO.getRoleName());
+        roleDTO.setIsWorker(WorkerRoleEnum.judgeWorkerRole(rolePageDO.getId()));
         roleDTO.setAdminUserCount(rolePageDO.getAdminUserCount());
         roleDTO.setStatus(rolePageDO.getStatus());
         roleDTO.setCreatedTime(rolePageDO.getCreatedTime());
