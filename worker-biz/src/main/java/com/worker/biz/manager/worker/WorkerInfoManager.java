@@ -12,6 +12,8 @@ import com.worker.common.base.exception.BizException;
 import com.worker.common.base.object.BasePage;
 import com.worker.common.util.ExcelUtil;
 import com.worker.common.utils.LoggerUtil;
+import com.worker.infra.dao.attendance.ClockInRecordDao;
+import com.worker.infra.dao.attendance.LeaveRecordDao;
 import com.worker.infra.dao.role.RoleDao;
 import com.worker.infra.dao.user.AdminUserDao;
 import com.worker.infra.dao.user.AdminUserRoleRelationDao;
@@ -59,6 +61,10 @@ public class WorkerInfoManager {
     private AdminUserRoleRelationDao adminUserRoleRelationDao;
     @Resource
     private RoleDao roleDao;
+    @Resource
+    private LeaveRecordDao leaveRecordDao;
+    @Resource
+    private ClockInRecordDao clockInRecordDao;
     @Resource
     private WorkerInfoConvertor workerInfoConvertor;
 
@@ -221,6 +227,9 @@ public class WorkerInfoManager {
             AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertDeleteAdminUserRelationToDO(adminUserInfoDO);
             adminUserRoleRelationDao.delAdminUserRoleRelation(adminUserRoleRelationDO);
         }
+
+        leaveRecordDao.deleteByWorkerId(id);
+        clockInRecordDao.deleteByWorkerId(id);
         return true;
     }
 

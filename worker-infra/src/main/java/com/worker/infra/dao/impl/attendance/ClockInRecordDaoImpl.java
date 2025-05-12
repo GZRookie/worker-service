@@ -72,4 +72,20 @@ public class ClockInRecordDaoImpl implements ClockInRecordDao {
         }
     }
 
+    @Override
+    public boolean deleteByWorkerId(Long workerId) {
+        try {
+            LambdaQueryWrapper<ClockInRecordDO> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ClockInRecordDO::getWorkerId, workerId);
+            int rows = clockInRecordMapper.delete(queryWrapper);
+            if (rows <= 0) {
+                LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), workerId);
+            }
+            return rows > 0;
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), workerId, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

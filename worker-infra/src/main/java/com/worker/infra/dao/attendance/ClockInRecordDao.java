@@ -37,4 +37,12 @@ public interface ClockInRecordDao {
      * @return 打卡记录
      */
     ClockInRecordDO queryClockInRecordByWorkerIdAndDate(Long workerId, Byte clockType, Date date);
+
+    /**
+     * 根据工人ID删除打卡记录
+     *
+     * @param workerId 工人ID
+     * @return 是否成功
+     */
+    boolean deleteByWorkerId(Long workerId);
 }

@@ -36,4 +36,12 @@ public interface LeaveRecordDao {
      * @return 是否有请假记录
      */
     boolean existsOverlappingLeave(Long workerId, Date startTime, Date endTime);
+
+    /**
+     * 根据工人ID删除记录
+     *
+     * @param workerId 工人ID
+     * @return 是否成功
+     */
+    boolean deleteByWorkerId(Long workerId);
 }

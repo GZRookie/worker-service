@@ -80,4 +80,20 @@ public class LeaveRecordDaoImpl implements LeaveRecordDao {
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public boolean deleteByWorkerId(Long workerId) {
+        try {
+            LambdaQueryWrapper<LeaveRecordDO> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(LeaveRecordDO::getWorkerId, workerId);
+            int rows = leaveRecordMapper.delete(queryWrapper);
+            if (rows <= 0) {
+                LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), workerId);
+            }
+            return rows > 0;
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.INSERT_EXCEPTION.getMsg(), workerId, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
