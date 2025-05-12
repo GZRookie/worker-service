@@ -29,8 +29,8 @@ public class AdminUserResponseStatus {
     public static final ResponseStatus ADMIN_USER_ID_NOT_NULL = new ResponseStatus(5111, "账号id不能为空");
     public static final ResponseStatus DELETE_PARAM_IS_NULL = new ResponseStatus(5112, "删除参数不能为空");
     public static final ResponseStatus ENABLE_PARAM_IS_NULL = new ResponseStatus(5113, "启用参数不能为空");
-    public static final ResponseStatus OTHER_NOT_WORKER = new ResponseStatus(5114, "该账号为工人角色，不允许修改");
-    public static final ResponseStatus WORKER_NOT_OTHER = new ResponseStatus(5115, "其他角色不允许修改为工人角色");
+    public static final ResponseStatus OTHER_NOT_WORKER = new ResponseStatus(5114, "其他角色不允许修改为工人角色");
+    public static final ResponseStatus WORKER_NOT_OTHER = new ResponseStatus(5115, "工人角色不允许修改为其他角色");
     public static final ResponseStatus WORKER_FORBID_DELETE = new ResponseStatus(5117, "工人角色不允许删除");
     public static final ResponseStatus WORKER_FORBID_ADD = new ResponseStatus(5118, "不允许新增工人角色");
 }

@@ -33,6 +33,9 @@ public enum LeaveTypeEnum {
     }
 
     public static LeaveTypeEnum getLeaveTypeEnumByValue(Integer value) {
+        if(value == null) {
+            return null;
+        }
         for (LeaveTypeEnum leaveTypeEnum : LeaveTypeEnum.values()) {
             if (leaveTypeEnum.getValue().equals(value)) {
                 return leaveTypeEnum;

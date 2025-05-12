@@ -167,6 +167,10 @@ public class WorkerInfoManager {
                 AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertAdminUserToRoleRelationDO(adminUserInfoDO.getId(), request);
                 adminUserRoleRelationDao.delAdminUserRoleRelation(adminUserRoleRelationDO);
                 adminUserRoleRelationDao.addAdminUserRoleRelation(adminUserRoleRelationDO);
+            } else {
+                AdminUserInfoDO adminUserInfoDO = adminUserDao.queryAdminUserInfoById(workerInfoDO.getSysUserId());
+                workerInfoConvertor.convertAdminUserToDO(adminUserInfoDO, request.getPhoneNum(), request.getName());
+                adminUserDao.editAdminUser(adminUserInfoDO);
             }
         }
 
@@ -382,6 +386,8 @@ public class WorkerInfoManager {
                 // 先新增账号用户
                 AdminUserInfoDO adminUserInfoDO = workerInfoConvertor.convertWorkerToAdminDO(workerInfoDO);
                 adminUserDao.addAdminUser(adminUserInfoDO);
+                AdminUserRoleRelationDO adminUserRoleRelationDO = workerInfoConvertor.convertWorkerToAdminRoleRelationDO(adminUserInfoDO.getId(), workerInfoDO.getRoleId());
+                adminUserRoleRelationDao.addAdminUserRoleRelation(adminUserRoleRelationDO);
                 workerInfoDO.setSysUserId(adminUserInfoDO.getId());
                 workerInfoDao.addWorkerInfo(workerInfoDO);
             }

@@ -158,6 +158,7 @@ public interface WorkerInfoConvertor {
         AdminUserInfoDO adminUserInfoDO = new AdminUserInfoDO();
         adminUserInfoDO.setPhoneNum(workerInfoDO.getPhoneNum());
         adminUserInfoDO.setRealName(workerInfoDO.getName());
+        adminUserInfoDO.setPassword("123456");
         adminUserInfoDO.setStatus(StatusEnum.ENABLED.getValue().byteValue());
         adminUserInfoDO.setDelete(DeleteEnum.EXIST.getValue().byteValue());
         adminUserInfoDO.setCreator(ThreadLocalUtil.getAdminUserId());
@@ -169,6 +170,15 @@ public interface WorkerInfoConvertor {
         AdminUserRoleRelationDO adminUserRoleRelationDO = new AdminUserRoleRelationDO();
         adminUserRoleRelationDO.setAdminUserId(adminUserId);
         adminUserRoleRelationDO.setAdminRoleId(request.getRoleId());
+        adminUserRoleRelationDO.setCreator(ThreadLocalUtil.getAdminUserId());
+        adminUserRoleRelationDO.setCreatedTime(new Date());
+        return adminUserRoleRelationDO;
+    }
+
+    default AdminUserRoleRelationDO convertWorkerToAdminRoleRelationDO(Long id, Long roleId) {
+        AdminUserRoleRelationDO adminUserRoleRelationDO = new AdminUserRoleRelationDO();
+        adminUserRoleRelationDO.setAdminUserId(id);
+        adminUserRoleRelationDO.setAdminRoleId(roleId);
         adminUserRoleRelationDO.setCreator(ThreadLocalUtil.getAdminUserId());
         adminUserRoleRelationDO.setCreatedTime(new Date());
         return adminUserRoleRelationDO;

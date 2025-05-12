@@ -68,4 +68,13 @@ public interface WorkerInfoDao {
      * @return 工人信息
      */
     List<WorkerInfoDO> queryWorkerInfoList();
+
+    /**
+     * 根据角色Id更新角色名称
+     *
+     * @param roleId 角色ID
+     * @param roleName 角色名称
+     * @return 是否成功
+     */
+    boolean updateWorkerInfoByRoleId(Long roleId, String roleName);
 }

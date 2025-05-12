@@ -227,7 +227,7 @@ public class AdminUserManager {
         }
 
         if(WorkerRoleEnum.judgeWorkerRole(existAdminRoleIds.get(0))) {
-            throw new BizException(AdminUserResponseStatus.OTHER_NOT_WORKER);
+            throw new BizException(AdminUserResponseStatus.WORKER_NOT_OTHER);
         }
 
         // 其他角色也不允许修改成工人角色

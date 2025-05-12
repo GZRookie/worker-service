@@ -88,7 +88,7 @@ public interface AttendanceConvertor {
 
         AttendanceRecordPageDTO attendanceRecordPageDTO = new AttendanceRecordPageDTO();
 
-        attendanceRecordPageDTO.setId( attendanceRecordPageDO.getId() );
+        attendanceRecordPageDTO.setId(attendanceRecordPageDO.getId());
         attendanceRecordPageDTO.setNum( i );
         attendanceRecordPageDTO.setWorkerId( attendanceRecordPageDO.getWorkerId() );
         attendanceRecordPageDTO.setWorkerName( attendanceRecordPageDO.getWorkerName() );
@@ -98,15 +98,15 @@ public interface AttendanceConvertor {
         attendanceRecordPageDTO.setClockStatus( attendanceRecordPageDO.getClockStatus() );
         ClockInStatusEnum clockInStatusEnum = ClockInStatusEnum.getClockInStatusEnumByValue(attendanceRecordPageDO.getClockStatus());
         attendanceRecordPageDTO.setClockStatusName(Objects.isNull(clockInStatusEnum) ? "" : clockInStatusEnum.getDesc());
-        attendanceRecordPageDTO.setLeaveId( attendanceRecordPageDO.getLeaveId() );
-        attendanceRecordPageDTO.setLeaveType( attendanceRecordPageDO.getLeaveType() );
+        attendanceRecordPageDTO.setLeaveId( Objects.isNull(attendanceRecordPageDO.getLeaveId()) ? null : attendanceRecordPageDO.getLeaveId() );
+        attendanceRecordPageDTO.setLeaveType( Objects.isNull(attendanceRecordPageDO.getLeaveType()) ? null : attendanceRecordPageDO.getLeaveType() );
         LeaveTypeEnum leaveTypeEnum = LeaveTypeEnum.getLeaveTypeEnumByValue(attendanceRecordPageDO.getLeaveType().intValue());
         attendanceRecordPageDTO.setLeaveTypeName(Objects.isNull(leaveTypeEnum) ? "" : leaveTypeEnum.getDesc());
         attendanceRecordPageDTO.setClockTime( attendanceRecordPageDO.getClockTime());
-        attendanceRecordPageDTO.setLeaveStartTime( attendanceRecordPageDO.getLeaveStartTime() );
-        attendanceRecordPageDTO.setLeaveEndTime( attendanceRecordPageDO.getLeaveEndTime() );
-        attendanceRecordPageDTO.setLeaveReason( attendanceRecordPageDO.getLeaveReason() );
-        attendanceRecordPageDTO.setRemark( attendanceRecordPageDO.getRemark() );
+        attendanceRecordPageDTO.setLeaveStartTime( Objects.isNull(attendanceRecordPageDO.getLeaveStartTime()) ? null : attendanceRecordPageDO.getLeaveStartTime() );
+        attendanceRecordPageDTO.setLeaveEndTime( Objects.isNull(attendanceRecordPageDO.getLeaveEndTime()) ? null : attendanceRecordPageDO.getLeaveEndTime() );
+        attendanceRecordPageDTO.setLeaveReason( Objects.isNull(attendanceRecordPageDO.getLeaveReason()) ? null : attendanceRecordPageDO.getLeaveReason() );
+        attendanceRecordPageDTO.setRemark( Objects.isNull(attendanceRecordPageDO.getRemark()) ? null : attendanceRecordPageDO.getRemark() );
 
         return attendanceRecordPageDTO;
     }

@@ -131,4 +131,18 @@ public class WorkerInfoDaoImpl implements WorkerInfoDao {
             throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public boolean updateWorkerInfoByRoleId(Long roleId, String roleName) {
+        try {
+            int rows = workerInfoMapper.updateWorkerInfoByRoleId(roleId, roleName);
+            if (rows <= 0) {
+                LoggerUtil.userErrorLog(LOGGER, DBExceptionType.UPDATE_EXCEPTION.getMsg(), roleId + "/" + roleName);
+            }
+            return rows > 0;
+        } catch (Exception ex) {
+            LoggerUtil.userErrorLog(LOGGER, DBExceptionType.UPDATE_EXCEPTION.getMsg(), roleId + "/" + roleName, ex);
+            throw new BizException(ResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
