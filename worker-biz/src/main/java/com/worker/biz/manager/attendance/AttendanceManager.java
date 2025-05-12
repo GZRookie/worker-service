@@ -69,13 +69,14 @@ public class AttendanceManager {
      * @return 请假记录
      */
     public Boolean applyLeave(LeaveRequest request) {
-        if(!Objects.equals(ThreadLocalUtil.getAdminUserId(), request.getWorkerId())) {
-            throw new BizException(LEAVE_FORBID_OTHERS);
-        }
         // 校验工人是否存在
         WorkerInfoDO workerInfoDO = workerInfoDao.queryWorkerInfoById(request.getWorkerId());
         if (Objects.isNull(workerInfoDO)) {
             throw new BizException(WORKER_NOT_EXIST);
+        }
+
+        if(!Objects.equals(ThreadLocalUtil.getAdminUserId(), workerInfoDO.getSysUserId())) {
+            throw new BizException(LEAVE_FORBID_OTHERS);
         }
         
         // 校验请假时间
@@ -104,14 +105,14 @@ public class AttendanceManager {
      * @return 打卡记录
      */
     public Boolean clockIn(ClockInRequest request) {
-        if(!Objects.equals(ThreadLocalUtil.getAdminUserId(), request.getWorkerId())) {
-            throw new BizException(CLOCK_IN_FORBID_OTHERS);
-        }
-
         // 校验工人是否存在
         WorkerInfoDO workerInfoDO = workerInfoDao.queryWorkerInfoById(request.getWorkerId());
         if (Objects.isNull(workerInfoDO)) {
             throw new BizException(WORKER_NOT_EXIST);
+        }
+
+        if(!Objects.equals(ThreadLocalUtil.getAdminUserId(), workerInfoDO.getSysUserId())) {
+            throw new BizException(CLOCK_IN_FORBID_OTHERS);
         }
         
         // 校验打卡类型

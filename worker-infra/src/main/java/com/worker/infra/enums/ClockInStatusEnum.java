@@ -32,6 +32,10 @@ public enum ClockInStatusEnum {
     }
 
     public static ClockInStatusEnum getClockInStatusEnumByValue(Byte value) {
+        if (value == null) {
+            return null;
+        }
+
         for (ClockInStatusEnum clockInStatusEnum : ClockInStatusEnum.values()) {
             if (clockInStatusEnum.getValue().equals(value)) {
                 return clockInStatusEnum;

@@ -100,7 +100,7 @@ public interface AttendanceConvertor {
         attendanceRecordPageDTO.setClockStatusName(Objects.isNull(clockInStatusEnum) ? "" : clockInStatusEnum.getDesc());
         attendanceRecordPageDTO.setLeaveId( Objects.isNull(attendanceRecordPageDO.getLeaveId()) ? null : attendanceRecordPageDO.getLeaveId() );
         attendanceRecordPageDTO.setLeaveType( Objects.isNull(attendanceRecordPageDO.getLeaveType()) ? null : attendanceRecordPageDO.getLeaveType() );
-        LeaveTypeEnum leaveTypeEnum = LeaveTypeEnum.getLeaveTypeEnumByValue(attendanceRecordPageDO.getLeaveType().intValue());
+        LeaveTypeEnum leaveTypeEnum = LeaveTypeEnum.getLeaveTypeEnumByValue(attendanceRecordPageDO.getLeaveType());
         attendanceRecordPageDTO.setLeaveTypeName(Objects.isNull(leaveTypeEnum) ? "" : leaveTypeEnum.getDesc());
         attendanceRecordPageDTO.setClockTime( attendanceRecordPageDO.getClockTime());
         attendanceRecordPageDTO.setLeaveStartTime( Objects.isNull(attendanceRecordPageDO.getLeaveStartTime()) ? null : attendanceRecordPageDO.getLeaveStartTime() );

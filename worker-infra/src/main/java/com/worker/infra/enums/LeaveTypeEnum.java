@@ -32,12 +32,13 @@ public enum LeaveTypeEnum {
         this.desc = desc;
     }
 
-    public static LeaveTypeEnum getLeaveTypeEnumByValue(Integer value) {
+    public static LeaveTypeEnum getLeaveTypeEnumByValue(Byte value) {
         if(value == null) {
             return null;
         }
+
         for (LeaveTypeEnum leaveTypeEnum : LeaveTypeEnum.values()) {
-            if (leaveTypeEnum.getValue().equals(value)) {
+            if (leaveTypeEnum.getValue().equals(value.intValue())) {
                 return leaveTypeEnum;
             }
         }
